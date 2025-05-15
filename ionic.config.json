@@ -1,0 +1,7 @@
+{
+  "name": "randevago",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "vue-vite"
+}
