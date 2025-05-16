@@ -29,5 +29,6 @@ import {
     IonTitle,
     IonContent,
     IonButton,
+    IonMenu
 } from '@ionic/vue';
 </script>

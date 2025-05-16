@@ -17,7 +17,70 @@
                 </ion-buttons>
             </ion-toolbar>
         </ion-header>
-        <ion-content> </ion-content>
+        <ion-content>
+            <img
+                alt="Silhouette of mountains"
+                src="https://ionicframework.com/docs/img/demos/card-media.png"
+            />
+            <ion-card-header>
+                <ion-card-title>Hotel Title</ion-card-title>
+                <ion-card-subtitle>
+                    <ion-icon
+                        v-for="n in 4"
+                        :key="n"
+                        :icon="star"
+                        size="small"
+                    />
+                    <ion-icon :icon="starHalf" size="small" />
+                </ion-card-subtitle>
+            </ion-card-header>
+            <div class="button-container">
+                <ion-button class="lr-button">Reserve for 255$ per night</ion-button>
+            </div>
+            <ion-segment>
+                <ion-segment-button value="overview" content-id="first">
+                    <ion-label>Overview</ion-label>
+                </ion-segment-button>
+                <ion-segment-button value="about" content-id="second">
+                    <ion-label>About</ion-label>
+                </ion-segment-button>
+                <ion-segment-button value="rooms" content-id="third">
+                    <ion-label>Rooms</ion-label>
+                </ion-segment-button>
+            </ion-segment>
+            <ion-segment-view>
+                <ion-segment-content id="first">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                    do eiusmod tempor incididunt ut labore et dolore magna
+                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                    ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                    Duis aute irure dolor in reprehenderit in voluptate velit
+                    esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
+                    occaecat cupidatat non proident, sunt in culpa qui officia
+                    deserunt mollit anim id est laborum.
+                </ion-segment-content>
+                <ion-segment-content id="second">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                    do eiusmod tempor incididunt ut labore et dolore magna
+                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                    ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                    Duis aute irure dolor in reprehenderit in voluptate velit
+                    esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
+                    occaecat cupidatat non proident, sunt in culpa qui officia
+                    deserunt mollit anim id est laborum.
+                </ion-segment-content>
+                <ion-segment-content id="third"
+                    >Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                    sed do eiusmod tempor incididunt ut labore et dolore magna
+                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                    ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                    Duis aute irure dolor in reprehenderit in voluptate velit
+                    esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
+                    occaecat cupidatat non proident, sunt in culpa qui officia
+                    deserunt mollit anim id est laborum.</ion-segment-content
+                >
+            </ion-segment-view>
+        </ion-content>
     </ion-page>
 </template>
 <script lang="ts" setup>
@@ -29,9 +92,23 @@ import {
     IonHeader,
     IonButtons,
     IonMenuButton,
+    IonBackButton,
     IonTitle,
-    IonBackButton
+    IonIcon,
+    IonSelect,
+    IonSelectOption,
+    IonCard,
+    IonCardTitle,
+    IonCardContent,
+    IonCardSubtitle,
+    IonCardHeader,
+    IonLabel,
+    IonSegment,
+    IonSegmentButton,
+    IonSegmentContent,
 } from '@ionic/vue';
+
+import { searchOutline, star, starHalf } from 'ionicons/icons';
 </script>
 
 <style scoped>

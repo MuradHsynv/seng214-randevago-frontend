@@ -57,19 +57,29 @@
                 </ion-select>
             </div>
             <div v-for="n in 5" :key="n">
-                <ion-card @click=moveToDetails>
+                <ion-card @click="moveToDetails">
                     <img
                         alt="Silhouette of mountains"
                         src="https://ionicframework.com/docs/img/demos/card-media.png"
                     />
                     <ion-card-header>
-                        <ion-card-title>Card Title</ion-card-title>
-                        <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
+                        <ion-card-title>Hotel Title</ion-card-title>
+                        <ion-card-subtitle>
+                            <ion-icon
+                                v-for="n in 4"
+                                :key="n"
+                                :icon="star"
+                                size="small"
+                            />
+                            <ion-icon :icon="starHalf" size="small" />
+                        </ion-card-subtitle>
                     </ion-card-header>
-
                     <ion-card-content>
                         Here's a small text description for the card content.
                         Nothing more, nothing less.
+                    </ion-card-content>
+                    <ion-card-content style="font-weight: bold">
+                        255$
                     </ion-card-content>
                 </ion-card>
             </div>
@@ -96,14 +106,14 @@ import {
     IonCardContent,
     IonCardSubtitle,
     IonCardHeader,
+    IonLabel,
 } from '@ionic/vue';
 
-import { searchOutline } from 'ionicons/icons';
+import { searchOutline, star, starHalf } from 'ionicons/icons';
 
-const moveToDetails = async() => {
-    await router.push("/details")
-}
-
+const moveToDetails = async () => {
+    await router.push('/details');
+};
 </script>
 
 <style scoped>
