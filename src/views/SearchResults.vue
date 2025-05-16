@@ -4,7 +4,7 @@
             <ion-toolbar color="none">
                 <ion-buttons slot="start">
                     <ion-back-button
-                        defaultHref="/"
+                        defaultHref="/search"
                         text="Back"
                         style="color: var(--color-tetriary)"
                     ></ion-back-button>

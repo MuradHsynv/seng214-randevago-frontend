@@ -4,7 +4,7 @@
             <ion-toolbar color="none">
                 <ion-buttons slot="start">
                     <ion-back-button
-                        defaultHref="/"
+                        defaultHref="/search"
                         text="Back"
                         style="color: var(--color-tetriary)"
                     ></ion-back-button>
@@ -44,7 +44,7 @@
                     </ion-item>
                     <div class="button-container">
                         <ion-button
-                            routerLink="/"
+                            routerLink="/search"
                             routerDirection="root"
                             class="lr-button"
                             shape="round"
@@ -89,7 +89,7 @@
                     </ion-item>
                     <div class="button-container">
                         <ion-button
-                            routerLink="/"
+                            routerLink="/search"
                             routerDirection="root"
                             class="lr-button"
                             shape="round"

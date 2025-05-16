@@ -35,8 +35,17 @@
                 </ion-card-subtitle>
             </ion-card-header>
             <div class="button-container">
-                <ion-button class="lr-button">Reserve for 255$ per night</ion-button>
+                <ion-button id="open-toast" class="lr-button"
+                    >Reserve for 255$ per night</ion-button
+                >
             </div>
+            <ion-toast
+                color="success"
+                trigger="open-toast"
+                position="middle"
+                message="Reservation successful"
+                :duration="5000"
+            />
             <ion-segment>
                 <ion-segment-button value="overview" content-id="first">
                     <ion-label>Overview</ion-label>
@@ -95,20 +104,17 @@ import {
     IonBackButton,
     IonTitle,
     IonIcon,
-    IonSelect,
-    IonSelectOption,
-    IonCard,
     IonCardTitle,
-    IonCardContent,
     IonCardSubtitle,
     IonCardHeader,
     IonLabel,
     IonSegment,
     IonSegmentButton,
     IonSegmentContent,
+    IonToast,
 } from '@ionic/vue';
 
-import { searchOutline, star, starHalf } from 'ionicons/icons';
+import { star, starHalf } from 'ionicons/icons';
 </script>
 
 <style scoped>

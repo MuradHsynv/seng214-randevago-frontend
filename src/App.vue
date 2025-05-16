@@ -7,7 +7,9 @@
                 </ion-toolbar>
             </ion-header>
             <ion-content>
-                <ion-button routerLink="/" expand="full">Search</ion-button>
+                <ion-button routerLink="/search" expand="full"
+                    >Search</ion-button
+                >
                 <ion-button
                     expand="full"
                     routerLink="/login"
@@ -29,6 +31,6 @@ import {
     IonTitle,
     IonContent,
     IonButton,
-    IonMenu
+    IonMenu,
 } from '@ionic/vue';
 </script>

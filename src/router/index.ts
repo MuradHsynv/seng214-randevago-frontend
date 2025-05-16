@@ -6,8 +6,9 @@ import SearchResults from '@/views/SearchResults.vue';
 import HotelDescription from '@/views/HotelDescription.vue';
 
 const routes: Array<RouteRecordRaw> = [
+    { path: '/', redirect: '/login' },
     {
-        path: '/',
+        path: '/search',
         component: SearchPage,
     },
     {
