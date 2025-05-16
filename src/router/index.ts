@@ -1,38 +1,29 @@
 import { createRouter, createWebHistory } from '@ionic/vue-router';
 import { RouteRecordRaw } from 'vue-router';
-import TabsPage from '../views/TabsPage.vue';
+import SearchPage from '@/views/SearchPage.vue';
+import LoginRegister from '@/views/LoginRegister.vue';
+import SearchResults from '@/views/SearchResults.vue';
+import HotelDescription from '@/views/HotelDescription.vue';
 
 const routes: Array<RouteRecordRaw> = [
     {
         path: '/',
-        redirect: '/login',
+        component: SearchPage,
     },
     {
         path: '/login',
         name: 'Login',
-        component: () => import('@/views/LoginRegister.vue'),
+        component: LoginRegister
     },
     {
-        path: '/tabs/',
-        component: TabsPage,
-        children: [
-            {
-                path: '',
-                redirect: '/tabs/tab1',
-            },
-            {
-                path: 'tab1',
-                component: () => import('@/views/Tab1Page.vue'),
-            },
-            {
-                path: 'tab2',
-                component: () => import('@/views/Tab2Page.vue'),
-            },
-            {
-                path: 'tab3',
-                component: () => import('@/views/Tab3Page.vue'),
-            },
-        ],
+        path: '/results',
+        name: 'Results',
+        component: SearchResults
+},
+    {
+        path: '/description',
+        name: 'Description',
+        component: HotelDescription
     },
 ];
 

@@ -6,12 +6,18 @@
                     <ion-back-button
                         default-href="/"
                         text="Back"
-                        style="color:var(--color-tetriary);"
+                        style="color: var(--color-tetriary)"
                     ></ion-back-button>
+                </ion-buttons>
+                <ion-buttons slot="end">
+                    <ion-button>
+                        <ion-menu-button :auto-hide="true"></ion-menu-button>
+                    </ion-button>
                 </ion-buttons>
             </ion-toolbar>
         </ion-header>
         <ion-content>
+            <h1 class="title">Randevago</h1>
             <div class="login-container">
                 <div class="login-register-toggle">
                     <h2 @click="login = true" :class="{ active: login }">
@@ -100,7 +106,6 @@ import {
     IonItem,
     IonLabel,
 } from '@ionic/vue';
-import LRTabs from './LRTabs.vue';
 import { ref } from 'vue';
 const login = ref(true);
 </script>
@@ -109,10 +114,8 @@ const login = ref(true);
     background: var(--ion-color-secondary);
     display: flex;
     flex-direction: column;
-    margin-top: 25%;
-    margin-inline: 10%;
+    margin-inline: 5%;
     padding-inline: 2%;
-    padding-bottom: 1%;
     border-radius: 25px;
 }
 
@@ -151,5 +154,12 @@ ion-item::part(native) {
     display: flex;
     margin-bottom: 10px;
     padding-left: 5px;
+}
+.title {
+    margin-top: 40%;
+    padding-left: 25px;
+    font-weight: bold;
+    color: var(--color-title);
+    font-size: 40px;
 }
 </style>
