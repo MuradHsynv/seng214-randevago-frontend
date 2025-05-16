@@ -4,7 +4,7 @@
             <ion-toolbar color="none">
                 <ion-buttons slot="start">
                     <ion-back-button
-                        default-href="/"
+                        defaultHref="/"
                         text="Back"
                         style="color: var(--color-tetriary)"
                     ></ion-back-button>
@@ -43,7 +43,11 @@
                         ></ion-input>
                     </ion-item>
                     <div class="button-container">
-                        <ion-button class="lr-button" shape="round"
+                        <ion-button
+                            routerLink="/"
+                            routerDirection="root"
+                            class="lr-button"
+                            shape="round"
                             >Login</ion-button
                         >
                     </div>
@@ -84,7 +88,11 @@
                         ></ion-input>
                     </ion-item>
                     <div class="button-container">
-                        <ion-button class="lr-button" shape="round"
+                        <ion-button
+                            routerLink="/"
+                            routerDirection="root"
+                            class="lr-button"
+                            shape="round"
                             >Register</ion-button
                         >
                     </div>
@@ -105,6 +113,7 @@ import {
     IonButtons,
     IonItem,
     IonLabel,
+    IonMenuButton,
 } from '@ionic/vue';
 import { ref } from 'vue';
 const login = ref(true);

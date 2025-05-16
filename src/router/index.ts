@@ -13,17 +13,17 @@ const routes: Array<RouteRecordRaw> = [
     {
         path: '/login',
         name: 'Login',
-        component: LoginRegister
+        component: LoginRegister,
     },
     {
         path: '/results',
         name: 'Results',
-        component: SearchResults
-},
+        component: SearchResults,
+    },
     {
-        path: '/description',
-        name: 'Description',
-        component: HotelDescription
+        path: '/details',
+        name: 'Details',
+        component: HotelDescription,
     },
 ];
 

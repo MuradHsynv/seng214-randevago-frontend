@@ -2,6 +2,13 @@
     <ion-page>
         <ion-header :transluscent="true">
             <ion-toolbar color="none">
+                <ion-buttons slot="start">
+                    <ion-back-button
+                        defaultHref="/results"
+                        text="Back"
+                        style="color: var(--color-tetriary)"
+                    ></ion-back-button>
+                </ion-buttons>
                 <ion-title class="title">Randevago</ion-title>
                 <ion-buttons slot="end">
                     <ion-button>
@@ -23,6 +30,7 @@ import {
     IonButtons,
     IonMenuButton,
     IonTitle,
+    IonBackButton
 } from '@ionic/vue';
 </script>
 

@@ -52,13 +52,18 @@
                     ></ion-datetime-button>
                 </ion-item>
             </ion-list>
-            <ion-button class="lr-button">Search</ion-button>
+            <ion-button
+                routerLink="/results"
+                routerDirection="forward"
+                class="lr-button"
+                >Search</ion-button
+            >
         </ion-content>
+        <ion-modal :keep-contents-mounted="true">
+            <ion-datetime id="starttime" presentation="date" />
+            <ion-datetime id="endtime" presentation="date" />
+        </ion-modal>
     </ion-page>
-    <ion-modal :keep-contents-mounted="true">
-        <ion-datetime id="starttime" presentation="date" />
-        <ion-datetime id="endtime" presentation="date" />
-    </ion-modal>
 </template>
 <script lang="ts" setup>
 import {
