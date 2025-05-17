@@ -31,6 +31,7 @@
                     <ion-item>
                         <ion-label position="stacked">Email</ion-label>
                         <ion-input
+                            v-model="loginEmail"
                             type="email"
                             placeholder="example@email.com"
                         ></ion-input>
@@ -38,14 +39,14 @@
                     <ion-item>
                         <ion-label position="stacked">Password</ion-label>
                         <ion-input
+                            v-model="loginPassword"
                             type="password"
                             placeholder="********"
                         ></ion-input>
                     </ion-item>
                     <div class="button-container">
                         <ion-button
-                            routerLink="/search"
-                            routerDirection="root"
+                            @click="handleLogin"
                             class="lr-button"
                             shape="round"
                             >Login</ion-button
@@ -89,8 +90,7 @@
                     </ion-item>
                     <div class="button-container">
                         <ion-button
-                            routerLink="/search"
-                            routerDirection="root"
+                            @click="handleRegister"
                             class="lr-button"
                             shape="round"
                             >Register</ion-button
@@ -101,6 +101,7 @@
         </ion-content>
     </ion-page>
 </template>
+
 <script lang="ts" setup>
 import {
     IonInput,
@@ -114,10 +115,67 @@ import {
     IonItem,
     IonLabel,
     IonMenuButton,
+    toastController,
 } from '@ionic/vue';
 import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+import emitter from '@/emitter'; 
+
 const login = ref(true);
+const loginEmail = ref('');
+const loginPassword = ref('');
+
+const router = useRouter();
+
+const handleLogin = async () => {
+    if (loginEmail.value.toLowerCase() === 'admin' && loginPassword.value === 'password') {
+        localStorage.setItem('isAdmin', 'true');
+        localStorage.removeItem('userToken'); 
+        emitter.emit('authChange');
+        const toast = await toastController.create({
+            message: 'Admin login successful!',
+            duration: 2000,
+            color: 'success',
+        });
+        await toast.present();
+        router.push('/admin/hotels');
+    } else {
+        localStorage.removeItem('isAdmin');
+        if (loginEmail.value && loginPassword.value) { 
+            localStorage.setItem('userToken', 'dummyRegularUserToken'); 
+            emitter.emit('authChange');
+            const toast = await toastController.create({
+                message: 'Login successful! (Regular User)',
+                duration: 2000,
+                color: 'success',
+            });
+            await toast.present();
+            router.push('/search');
+        } else {
+             const toast = await toastController.create({
+                message: 'Invalid credentials or fields empty.',
+                duration: 2000,
+                color: 'danger',
+            });
+            await toast.present();
+        }
+    }
+};
+
+const handleRegister = async () => {
+    localStorage.removeItem('isAdmin');
+    localStorage.removeItem('userToken');
+    emitter.emit('authChange');
+    const toast = await toastController.create({
+        message: 'Registration successful! Please login.',
+        duration: 2000,
+        color: 'success'
+    });
+    await toast.present();
+    login.value = true;
+};
 </script>
+
 <style scoped>
 .login-container {
     background: var(--ion-color-secondary);
