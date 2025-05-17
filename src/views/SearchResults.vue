@@ -30,32 +30,14 @@
                     ></ion-icon>
                 </div>
             </div>
-            <div class="filters-container">
-                <ion-label>Sort options</ion-label>
-                <ion-select label="Popularity" label-placement="floating">
-                    <ion-select-option value="Increasing"
-                        >Increasing</ion-select-option
-                    >
-                    <ion-select-option value="Decreasing"
-                        >Decreasing</ion-select-option
-                    >
-                </ion-select>
-                <ion-select label="Price" label-placement="floating">
-                    <ion-select-option value="Increasing"
-                        >Increasing</ion-select-option
-                    >
-                    <ion-select-option value="Decreasing"
-                        >Decreasing</ion-select-option
-                    > </ion-select
-                ><ion-select label="Avg. Rating" label-placement="floating">
-                    <ion-select-option value="Increasing"
-                        >Increasing</ion-select-option
-                    >
-                    <ion-select-option value="Decreasing"
-                        >Decreasing</ion-select-option
-                    >
-                </ion-select>
-            </div>
+                <div class="filters-container">
+                    <ion-select interface="popover" label="Sort By" label-placement="floating" v-model="sortBy.popularity">
+                        <ion-select-option value="popularity_desc">Popularity</ion-select-option>
+                        <ion-select-option value="price_asc">Price: Low to High</ion-select-option>
+                        <ion-select-option value="price_desc">Price: High to Low</ion-select-option>
+                        <ion-select-option value="rating_desc">Rating: High to Low</ion-select-option>
+                    </ion-select>
+                </div>
             <div v-for="n in 5" :key="n">
                 <ion-card @click="moveToDetails">
                     <img
@@ -110,10 +92,15 @@ import {
 } from '@ionic/vue';
 
 import { searchOutline, star, starHalf } from 'ionicons/icons';
+import { ref } from 'vue';
 
 const moveToDetails = async () => {
     await router.push('/details');
 };
+
+const sortBy = ref({
+    popularity: 'popularity_desc',
+});
 </script>
 
 <style scoped>

@@ -77,7 +77,18 @@
                     esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
                     occaecat cupidatat non proident, sunt in culpa qui officia
                     deserunt mollit anim id est laborum.
+                    <ion-title style="padding-left: 3px; font-weight: bold; margin-top: 15px;">Location</ion-title>
+                    <div style="padding: 10px; height: 300px; width: 100%;">
+                        <l-map ref="mapRef" v-model:zoom="zoom" :center="[47.41322, -1.219482]">
+                            <l-tile-layer
+                                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                                layer-type="base"
+                                name="OpenStreetMap"
+                            ></l-tile-layer>
+                        </l-map>
+                    </div>
                 </ion-segment-content>
+
                 <ion-segment-content id="third"
                     >Lorem ipsum dolor sit amet, consectetur adipiscing elit,
                     sed do eiusmod tempor incididunt ut labore et dolore magna
@@ -113,8 +124,24 @@ import {
     IonSegmentContent,
     IonToast,
 } from '@ionic/vue';
-
+import L from 'leaflet'; 
+import "leaflet/dist/leaflet.css";
+import { LMap, LTileLayer } from "@vue-leaflet/vue-leaflet";
 import { star, starHalf } from 'ionicons/icons';
+import { ref, nextTick, onMounted } from 'vue';
+
+import iconRetinaUrl from 'leaflet/dist/images/marker-icon-2x.png';
+import iconUrl from 'leaflet/dist/images/marker-icon.png';
+import shadowUrl from 'leaflet/dist/images/marker-shadow.png';
+
+const zoom = ref(15);
+const mapRef = ref(null);
+
+L.Icon.Default.mergeOptions({
+  iconRetinaUrl: iconRetinaUrl,
+  iconUrl: iconUrl,
+  shadowUrl: shadowUrl,
+});
 </script>
 
 <style scoped>

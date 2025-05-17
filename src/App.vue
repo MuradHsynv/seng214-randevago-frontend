@@ -8,14 +8,19 @@
             </ion-header>
             <ion-content>
                 <ion-list>
-                    <ion-menu-toggle auto-hide="false">
+                    <ion-menu-toggle :auto-hide="false">
                         <ion-item button @click="navigateTo('/search')">
                             <ion-icon slot="start" :icon="searchIcon"></ion-icon>
                             <ion-label>Search Hotels</ion-label>
                         </ion-item>
                     </ion-menu-toggle>
-
-                    <ion-menu-toggle auto-hide="false" v-if="isUserLoggedInLocal">
+                    <ion-menu-toggle :auto-hide="false" v-if="isRegularUserLoggedInLocal && !isAdminLocal">
+                        <ion-item button @click="navigateTo('/my-reservations')">
+                            <ion-icon slot="start" :icon="listCircleIcon"></ion-icon>
+                            <ion-label>My Reservations</ion-label>
+                        </ion-item>
+                    </ion-menu-toggle>
+                    <ion-menu-toggle :auto-hide="false" v-if="isUserLoggedInLocal">
                         <ion-item button @click="logout">
                             <ion-icon slot="start" :icon="logOutIcon"></ion-icon>
                             <ion-label>Log Out</ion-label>
@@ -27,22 +32,34 @@
                             <ion-label>Admin Tools</ion-label>
                         </ion-item-divider>
 
-                        <ion-menu-toggle auto-hide="false">
+                        <ion-menu-toggle :auto-hide="false">
                             <ion-item button @click="navigateTo('/admin/hotels')">
                                 <ion-icon slot="start" :icon="businessIcon"></ion-icon>
                                 <ion-label>Hotel Management</ion-label>
                             </ion-item>
                         </ion-menu-toggle>
 
-                        <ion-menu-toggle auto-hide="false">
+                        <ion-menu-toggle :auto-hide="false">
                             <ion-item button @click="navigateTo('/admin/promotions')">
                                 <ion-icon slot="start" :icon="pricetagIcon"></ion-icon>
                                 <ion-label>Promotion Management</ion-label>
                             </ion-item>
                         </ion-menu-toggle>
+                        <ion-menu-toggle :auto-hide="false">
+                            <ion-item button @click="navigateTo('/admin/users')">
+                                <ion-icon slot="start" :icon="peopleIcon"></ion-icon> 
+                                <ion-label>User Management</ion-label>
+                            </ion-item>
+                        </ion-menu-toggle>
+                        <ion-menu-toggle :auto-hide="false">
+                            <ion-item button @click="navigateTo('/admin/reservations')">
+                                <ion-icon slot="start" :icon="calendarIcon"></ion-icon> 
+                                <ion-label>All Reservations</ion-label>
+                            </ion-item>
+                        </ion-menu-toggle>
                     </div>
                     
-                    <ion-menu-toggle auto-hide="false" v-if="!isUserLoggedInLocal">
+                    <ion-menu-toggle :auto-hide="false" v-if="!isUserLoggedInLocal">
                          <ion-item button @click="navigateTo('/login')">
                             <ion-icon slot="start" :icon="logInIcon"></ion-icon>
                             <ion-label>Login / Register</ion-label>
@@ -70,7 +87,7 @@ import {
   IonTitle,
   IonToolbar,
   menuController,
-  IonItemDivider,
+  IonItemDivider
 } from '@ionic/vue';
 import { ref, onMounted, onUnmounted, computed } from 'vue';
 import { useRouter } from 'vue-router';
@@ -79,7 +96,10 @@ import {
     logInOutline as logInIcon,
     logOutOutline as logOutIcon, 
     businessOutline as businessIcon, 
-    pricetagOutline as pricetagIcon 
+    pricetagOutline as pricetagIcon, 
+    peopleOutline as peopleIcon,
+    listCircleOutline as listCircleIcon,
+    calendarOutline as calendarIcon  
 } from 'ionicons/icons';
 import emitter from '@/emitter';
 
