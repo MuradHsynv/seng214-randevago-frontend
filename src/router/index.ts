@@ -4,6 +4,7 @@ import SearchPage from '@/views/SearchPage.vue';
 import LoginRegister from '@/views/LoginRegister.vue';
 import SearchResults from '@/views/SearchResults.vue';
 import HotelDescription from '@/views/HotelDescription.vue';
+import AdminHotelsPage from '../views/AdminHotelsPage.vue';
 
 const routes: Array<RouteRecordRaw> = [
     { path: '/', redirect: '/login' },
@@ -26,6 +27,11 @@ const routes: Array<RouteRecordRaw> = [
         name: 'Details',
         component: HotelDescription,
     },
+    {
+        path: '/admin/hotels',
+        name: 'AdminHotels',
+        component: AdminHotelsPage
+    }
 ];
 
 const router = createRouter({
