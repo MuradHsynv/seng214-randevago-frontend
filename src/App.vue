@@ -1,26 +1,54 @@
 <template>
     <ion-app>
-        <ion-menu content-id="main-content">
+        <ion-menu content-id="main-content" type="overlay" @ionWillOpen="checkAuthStatus">
             <ion-header :transluscent="true">
-                <ion-toolbar color="none">
-                    <ion-title class="title">Menu</ion-title>
+                <ion-toolbar color="primary">
+                    <ion-title>Menu</ion-title>
                 </ion-toolbar>
             </ion-header>
             <ion-content>
-                <ion-button v-if="isAdmin"
-                    expand="full"
-                    button @click="navigateTo('/admin/hotels')"
-                    >Admin Panel</ion-button
-                >
-                <ion-button button @click="navigateTo('/search')" expand="full"
-                    >Search</ion-button
-                >
-                <ion-button
-                    expand="full"
-                    button @click="logout"
-                    routerDirection="forward"
-                    >Log Out</ion-button
-                >
+                <ion-list>
+                    <ion-menu-toggle auto-hide="false">
+                        <ion-item button @click="navigateTo('/search')">
+                            <ion-icon slot="start" :icon="searchIcon"></ion-icon>
+                            <ion-label>Search Hotels</ion-label>
+                        </ion-item>
+                    </ion-menu-toggle>
+
+                    <ion-menu-toggle auto-hide="false" v-if="isUserLoggedInLocal">
+                        <ion-item button @click="logout">
+                            <ion-icon slot="start" :icon="logOutIcon"></ion-icon>
+                            <ion-label>Log Out</ion-label>
+                        </ion-item>
+                    </ion-menu-toggle>
+                    
+                    <div v-if="isAdminLocal"> 
+                        <ion-item-divider>
+                            <ion-label>Admin Tools</ion-label>
+                        </ion-item-divider>
+
+                        <ion-menu-toggle auto-hide="false">
+                            <ion-item button @click="navigateTo('/admin/hotels')">
+                                <ion-icon slot="start" :icon="businessIcon"></ion-icon>
+                                <ion-label>Hotel Management</ion-label>
+                            </ion-item>
+                        </ion-menu-toggle>
+
+                        <ion-menu-toggle auto-hide="false">
+                            <ion-item button @click="navigateTo('/admin/promotions')">
+                                <ion-icon slot="start" :icon="pricetagIcon"></ion-icon>
+                                <ion-label>Promotion Management</ion-label>
+                            </ion-item>
+                        </ion-menu-toggle>
+                    </div>
+                    
+                    <ion-menu-toggle auto-hide="false" v-if="!isUserLoggedInLocal">
+                         <ion-item button @click="navigateTo('/login')">
+                            <ion-icon slot="start" :icon="logInIcon"></ion-icon>
+                            <ion-label>Login / Register</ion-label>
+                        </ion-item>
+                    </ion-menu-toggle>
+                </ion-list>
             </ion-content>
         </ion-menu>
         <ion-router-outlet id="main-content" />
@@ -42,21 +70,39 @@ import {
   IonTitle,
   IonToolbar,
   menuController,
+  IonItemDivider,
 } from '@ionic/vue';
-import { ref, onMounted, computed } from 'vue';
-import { useRouter, useRoute } from 'vue-router';
-import { searchOutline as searchIcon, logInOutline as logInIcon, cogOutline as cogIcon, logOutOutline as logOutIcon } from 'ionicons/icons'; // Import icons
+import { ref, onMounted, onUnmounted, computed } from 'vue';
+import { useRouter } from 'vue-router';
+import { 
+    searchOutline as searchIcon,
+    logInOutline as logInIcon,
+    logOutOutline as logOutIcon, 
+    businessOutline as businessIcon, 
+    pricetagOutline as pricetagIcon 
+} from 'ionicons/icons';
+import emitter from '@/emitter';
 
-const isAdmin = ref(false);
+const isAdminLocal = ref(false); 
+const isRegularUserLoggedInLocal = ref(false); 
 const router = useRouter();
-const route = useRoute(); 
 
-const checkAdminStatus = () => {
-  isAdmin.value = localStorage.getItem('isAdmin') === 'true';
+const isUserLoggedInLocal = computed(() => {
+  return isAdminLocal.value || isRegularUserLoggedInLocal.value;
+});
+
+const checkAuthStatus = () => {
+  isAdminLocal.value = localStorage.getItem('isAdmin') === 'true';
+  isRegularUserLoggedInLocal.value = !!localStorage.getItem('userToken');
 };
 
 onMounted(() => {
-  checkAdminStatus(); 
+  checkAuthStatus(); 
+  emitter.on('authChange', checkAuthStatus);
+});
+
+onUnmounted(() => {
+  emitter.off('authChange', checkAuthStatus);
 });
 
 const navigateTo = (path: string) => {
@@ -66,8 +112,15 @@ const navigateTo = (path: string) => {
 
 const logout = () => {
   localStorage.removeItem('isAdmin');
-  isAdmin.value = false; 
+  localStorage.removeItem('userToken');
+  emitter.emit('authChange');
   router.push('/login');
   menuController.close();
 };
 </script>
+
+<style scoped>
+ion-item-divider {
+    margin-top: 10px;
+}
+</style>

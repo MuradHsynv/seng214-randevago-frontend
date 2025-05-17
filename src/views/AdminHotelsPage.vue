@@ -4,12 +4,12 @@
       <ion-toolbar color="primary">
         <ion-buttons slot="start">
           <ion-back-button
-            default-href="/"
+            default-href="/search"
             text="Back"
             style="color: var(--color-tetriary)"
           ></ion-back-button>
         </ion-buttons>
-        <ion-title>Randevago</ion-title>
+         <ion-title size="large">Hotels</ion-title>
         <ion-buttons slot="end">
           <ion-button>
             <ion-menu-button :auto-hide="false"></ion-menu-button>
@@ -72,9 +72,16 @@
           <ion-card-content v-if="hotel.price" style="font-weight: bold; color: var(--ion-color-primary); font-size: 1.1em;">
             {{ hotel.price }}
           </ion-card-content>
-           <ion-item lines="none">
-             <ion-button fill="clear" size="small" @click="openEditModal(hotel)">Edit</ion-button>
-           </ion-item>
+            <ion-item lines="none" class="card-actions">
+                <ion-button fill="clear" size="small" @click="openEditModal(hotel)">
+                <ion-icon slot="start" :icon="pencilIcon"></ion-icon>
+                Edit
+                </ion-button>
+                <ion-button fill="clear" size="small" color="danger" @click="confirmRemoveHotel(hotel)">
+                <ion-icon slot="start" :icon="trashIcon"></ion-icon>
+                Remove
+                </ion-button>
+            </ion-item>
         </ion-card>
       </div>
 
@@ -163,7 +170,8 @@ import {
   IonToggle,
   IonBadge,
 } from '@ionic/vue';
-import { add as addIcon, star, starHalf } from 'ionicons/icons';
+import { add as addIcon, star, starHalf, trashOutline as trashIcon, pencilOutline as pencilIcon } from 'ionicons/icons';
+import { alertController } from '@ionic/vue';
 
 interface Hotel {
   id: string;
@@ -210,6 +218,12 @@ const saveHotelToAPI = async (hotelData: Hotel): Promise<Hotel> => {
   isSaving.value = false;
   const idToUse = hotelData.id || String(Date.now());
   return { ...hotelData, id: idToUse } as Hotel;
+};
+
+const deleteHotelFromAPI = async (hotelId: string): Promise<void> => {
+  console.log("Deleting hotel with ID from API (simulated):", hotelId);
+  await new Promise(resolve => setTimeout(resolve, 500));
+  console.log("Hotel deleted from API successfully (simulated).");
 };
 
 onMounted(async () => {
@@ -287,6 +301,53 @@ const handleSaveHotel = async () => {
     isSaving.value = false;
   }
 };
+
+const confirmRemoveHotel = async (hotelToRemove: Hotel) => {
+  const alert = await alertController.create({
+    header: 'Confirm Delete',
+    message: `Are you sure you want to remove "${hotelToRemove.name}"? This action cannot be undone.`,
+    buttons: [
+      {
+        text: 'Cancel',
+        role: 'cancel',
+        cssClass: 'secondary',
+      },
+      {
+        text: 'Remove',
+        cssClass: 'danger',
+        handler: async () => {
+          await removeHotel(hotelToRemove.id);
+        },
+      },
+    ],
+  });
+  await alert.present();
+};
+
+const removeHotel = async (hotelId: string) => {
+  try {
+
+    await deleteHotelFromAPI(hotelId);
+
+    hotels.value = hotels.value.filter(hotel => hotel.id !== hotelId);
+
+    const toast = await toastController.create({
+      message: 'Hotel removed successfully.',
+      duration: 2000,
+      color: 'success',
+    });
+    await toast.present();
+  } catch (error) {
+    console.error("Failed to remove hotel:", error);
+    const toast = await toastController.create({
+      message: 'Error removing hotel. Please try again.',
+      duration: 3000,
+      color: 'danger',
+    });
+    await toast.present();
+  }
+};
+
 </script>
 
 <style scoped>
@@ -299,7 +360,12 @@ ion-card-subtitle ion-icon {
 ion-card-content[style*="font-weight: bold"] {
   margin-top: 8px;
 }
-ion-card ion-item[lines="none"] ion-button {
-  margin-inline-start: auto;
+.card-actions {
+  justify-content: flex-end; 
+  padding-top: 0;
+  padding-bottom: 8px;
+}
+.card-actions ion-button {
+  margin-inline-start: 4px;
 }
 </style>

@@ -1,12 +1,10 @@
-// In src/views/LoginRegister.vue
-
 <template>
     <ion-page>
         <ion-header :transluscent="true">
             <ion-toolbar color="none">
                 <ion-buttons slot="start">
                     <ion-back-button
-                        defaultHref="/login"
+                        defaultHref="/search"
                         text="Back"
                         style="color: var(--color-tetriary)"
                     ></ion-back-button>
@@ -118,10 +116,10 @@ import {
     IonLabel,
     IonMenuButton,
     toastController,
-    menuController,
 } from '@ionic/vue';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
+import emitter from '@/emitter'; 
 
 const login = ref(true);
 const loginEmail = ref('');
@@ -131,7 +129,9 @@ const router = useRouter();
 
 const handleLogin = async () => {
     if (loginEmail.value.toLowerCase() === 'admin' && loginPassword.value === 'password') {
-        localStorage.setItem('isAdmin', 'true'); 
+        localStorage.setItem('isAdmin', 'true');
+        localStorage.removeItem('userToken'); 
+        emitter.emit('authChange');
         const toast = await toastController.create({
             message: 'Admin login successful!',
             duration: 2000,
@@ -140,8 +140,10 @@ const handleLogin = async () => {
         await toast.present();
         router.push('/admin/hotels');
     } else {
-        localStorage.removeItem('isAdmin'); 
-        if (loginEmail.value && loginPassword.value) {
+        localStorage.removeItem('isAdmin');
+        if (loginEmail.value && loginPassword.value) { 
+            localStorage.setItem('userToken', 'dummyRegularUserToken'); 
+            emitter.emit('authChange');
             const toast = await toastController.create({
                 message: 'Login successful! (Regular User)',
                 duration: 2000,
@@ -162,15 +164,16 @@ const handleLogin = async () => {
 
 const handleRegister = async () => {
     localStorage.removeItem('isAdmin');
+    localStorage.removeItem('userToken');
+    emitter.emit('authChange');
     const toast = await toastController.create({
         message: 'Registration successful! Please login.',
         duration: 2000,
         color: 'success'
     });
     await toast.present();
-    login.value = true; // Switch to login tab
+    login.value = true;
 };
-
 </script>
 
 <style scoped>
