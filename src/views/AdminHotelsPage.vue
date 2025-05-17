@@ -1,7 +1,7 @@
 <template>
   <ion-page>
     <ion-header :translucent="true">
-      <ion-toolbar color="primary">
+      <ion-toolbar color="none">
         <ion-buttons slot="start">
           <ion-back-button
             default-href="/search"
@@ -9,7 +9,7 @@
             style="color: var(--color-tetriary)"
           ></ion-back-button>
         </ion-buttons>
-         <ion-title size="large">Hotels</ion-title>
+         <ion-title class="ion-text-center" size="large">Hotels</ion-title>
         <ion-buttons slot="end">
           <ion-button>
             <ion-menu-button :auto-hide="false"></ion-menu-button>
@@ -107,7 +107,7 @@
           </ion-item>
           <ion-item>
             <ion-label position="floating">Description</ion-label>
-            <ion-textarea v-model="currentHotel.description" auto-grow="true"></ion-textarea>
+            <ion-textarea v-model="currentHotel.description" :autoGrow="true"></ion-textarea>
           </ion-item>
           <ion-item>
             <ion-label position="floating">Location (e.g., City, Country)</ion-label>
@@ -364,6 +364,11 @@ ion-card-content[style*="font-weight: bold"] {
   justify-content: flex-end; 
   padding-top: 0;
   padding-bottom: 8px;
+}
+.title {
+    font-weight: bold;
+    color: var(--color-title);
+    align-self: center;
 }
 .card-actions ion-button {
   margin-inline-start: 4px;

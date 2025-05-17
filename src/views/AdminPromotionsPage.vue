@@ -1,7 +1,7 @@
 <template>
   <ion-page>
     <ion-header :translucent="true">
-      <ion-toolbar color="primary">
+      <ion-toolbar color="none">
         <ion-buttons slot="start">
           <ion-back-button
             default-href="/admin/hotels"
@@ -9,7 +9,7 @@
             style="color: var(--color-tetriary)"
           ></ion-back-button>
         </ion-buttons>
-        <ion-title>Promotions</ion-title>
+        <ion-title class="ion-text-center">Promotions</ion-title>
         <ion-buttons slot="end">
           <ion-button>
             <ion-menu-button :auto-hide="false"></ion-menu-button>
@@ -21,7 +21,7 @@
     <ion-content :fullscreen="true">
       <ion-header collapse="condense">
         <ion-toolbar>
-          <ion-title size="large">Promotions</ion-title>
+          <ion-title class="ion-text-center" size="large">Promotions</ion-title>
         </ion-toolbar>
       </ion-header>
 
@@ -89,7 +89,7 @@
           </ion-item>
           <ion-item>
             <ion-label position="floating">Description *</ion-label>
-            <ion-textarea v-model="currentPromotion.description" auto-grow="true" required></ion-textarea>
+            <ion-textarea v-model="currentPromotion.description" :auto-grow= false required></ion-textarea>
           </ion-item>
           <ion-item>
             <ion-label>Discount Type *</ion-label>
@@ -326,5 +326,10 @@ const removePromotion = async (promoId: string) => {
 ion-item-sliding ion-item-option {
   border-radius: 5px;
   margin: 2px;
+}
+.title {
+    font-weight: bold;
+    color: var(--color-title);
+    align-self: center;
 }
 </style>
