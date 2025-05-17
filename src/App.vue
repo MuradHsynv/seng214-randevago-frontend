@@ -14,7 +14,12 @@
                             <ion-label>Search Hotels</ion-label>
                         </ion-item>
                     </ion-menu-toggle>
-
+                    <ion-menu-toggle :auto-hide="false" v-if="isRegularUserLoggedInLocal && !isAdminLocal">
+                        <ion-item button @click="navigateTo('/my-reservations')">
+                            <ion-icon slot="start" :icon="listCircleIcon"></ion-icon>
+                            <ion-label>My Reservations</ion-label>
+                        </ion-item>
+                    </ion-menu-toggle>
                     <ion-menu-toggle :auto-hide="false" v-if="isUserLoggedInLocal">
                         <ion-item button @click="logout">
                             <ion-icon slot="start" :icon="logOutIcon"></ion-icon>
@@ -44,6 +49,12 @@
                             <ion-item button @click="navigateTo('/admin/users')">
                                 <ion-icon slot="start" :icon="peopleIcon"></ion-icon> 
                                 <ion-label>User Management</ion-label>
+                            </ion-item>
+                        </ion-menu-toggle>
+                        <ion-menu-toggle :auto-hide="false">
+                            <ion-item button @click="navigateTo('/admin/reservations')">
+                                <ion-icon slot="start" :icon="calendarIcon"></ion-icon> 
+                                <ion-label>All Reservations</ion-label>
                             </ion-item>
                         </ion-menu-toggle>
                     </div>
@@ -86,7 +97,9 @@ import {
     logOutOutline as logOutIcon, 
     businessOutline as businessIcon, 
     pricetagOutline as pricetagIcon, 
-    peopleOutline as peopleIcon
+    peopleOutline as peopleIcon,
+    listCircleOutline as listCircleIcon,
+    calendarOutline as calendarIcon  
 } from 'ionicons/icons';
 import emitter from '@/emitter';
 

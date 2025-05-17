@@ -124,7 +124,7 @@ import {
     IonSegmentContent,
     IonToast,
 } from '@ionic/vue';
-import L from 'leaflet'; // Import the main Leaflet object
+import L from 'leaflet'; 
 import "leaflet/dist/leaflet.css";
 import { LMap, LTileLayer } from "@vue-leaflet/vue-leaflet";
 import { star, starHalf } from 'ionicons/icons';

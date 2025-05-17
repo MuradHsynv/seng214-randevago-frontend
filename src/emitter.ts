@@ -1,7 +1,7 @@
 import mitt from 'mitt';
 
 type Events = {
-  authChange: void; // No data needed for this simple case
+  authChange: void; 
 };
 
 const emitter = mitt<Events>();
