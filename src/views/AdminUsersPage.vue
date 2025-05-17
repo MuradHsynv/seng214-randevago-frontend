@@ -1,7 +1,7 @@
 <template>
   <ion-page>
     <ion-header :translucent="true">
-      <ion-toolbar color="primary">
+      <ion-toolbar color="none">
         <ion-buttons slot="start">
           <ion-back-button default-href="/admin/hotels" text="Back" style="color: var(--color-tetriary)"></ion-back-button>
         </ion-buttons>
