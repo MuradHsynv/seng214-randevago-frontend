@@ -21,7 +21,7 @@
                         </ion-item>
                     </ion-menu-toggle>
                     <ion-menu-toggle :auto-hide="false" v-if="isRegularUserLoggedInLocal && !isAdminLocal">
-    <ion-item button @click="navigateTo('/userhotels')">
+    <ion-item button @click="navigateTo('/user-hotels')">
         <ion-icon slot="start" :icon="businessIcon"></ion-icon>
         <ion-label>Hotels</ion-label>
     </ion-item>
