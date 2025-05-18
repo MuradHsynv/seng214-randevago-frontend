@@ -20,6 +20,13 @@
                             <ion-label>My Reservations</ion-label>
                         </ion-item>
                     </ion-menu-toggle>
+                    <ion-menu-toggle :auto-hide="false" v-if="isRegularUserLoggedInLocal && !isAdminLocal">
+    <ion-item button @click="navigateTo('/userhotels')">
+        <ion-icon slot="start" :icon="businessIcon"></ion-icon>
+        <ion-label>Hotels</ion-label>
+    </ion-item>
+</ion-menu-toggle>
+
                     <ion-menu-toggle :auto-hide="false" v-if="isUserLoggedInLocal">
                         <ion-item button @click="logout">
                             <ion-icon slot="start" :icon="logOutIcon"></ion-icon>

@@ -102,6 +102,8 @@
     </ion-page>
 </template>
 
+
+
 <script lang="ts" setup>
 import {
     IonInput,
@@ -130,7 +132,7 @@ const router = useRouter();
 const handleLogin = async () => {
     if (loginEmail.value.toLowerCase() === 'admin' && loginPassword.value === 'password') {
         localStorage.setItem('isAdmin', 'true');
-        localStorage.removeItem('userToken'); 
+        localStorage.removeItem('userToken');
         emitter.emit('authChange');
         const toast = await toastController.create({
             message: 'Admin login successful!',
@@ -139,28 +141,34 @@ const handleLogin = async () => {
         });
         await toast.present();
         router.push('/admin/hotels');
-    } else {
+    } 
+    // Yeni kullanıcı kontrolü
+    else if (loginEmail.value.toLowerCase() === 'user' && loginPassword.value === '1234') {
         localStorage.removeItem('isAdmin');
-        if (loginEmail.value && loginPassword.value) { 
-            localStorage.setItem('userToken', 'dummyRegularUserToken'); 
-            emitter.emit('authChange');
-            const toast = await toastController.create({
-                message: 'Login successful! (Regular User)',
-                duration: 2000,
-                color: 'success',
-            });
-            await toast.present();
-            router.push('/search');
-        } else {
-             const toast = await toastController.create({
-                message: 'Invalid credentials or fields empty.',
-                duration: 2000,
-                color: 'danger',
-            });
-            await toast.present();
-        }
+        localStorage.setItem('userToken', 'dummyRegularUserToken');
+        localStorage.setItem('userName', 'user');
+        emitter.emit('authChange');
+        const toast = await toastController.create({
+            message: 'Login successful! (User)',
+            duration: 2000,
+            color: 'success',
+        });
+        await toast.present();
+        router.push('/user-hotels');
+    } 
+    else {
+        const toast = await toastController.create({
+            message: 'Invalid credentials or fields empty.',
+            duration: 2000,
+            color: 'danger',
+        });
+        await toast.present();
+        console.log('Navigating to /user...');
+router.push('/user');
     }
 };
+
+
 
 const handleRegister = async () => {
     localStorage.removeItem('isAdmin');
