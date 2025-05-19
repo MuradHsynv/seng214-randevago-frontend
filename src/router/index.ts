@@ -10,7 +10,6 @@ import AdminUsersPage from '../views/AdminUsersPage.vue';
 import MyReservationsPage from '../views/MyReservationPage.vue';
 import AdminReservationsPage from '../views/AdminReservationsPage.vue';
 import UserHotels from '../views/UserHotels.vue';
-import HotelDetailView from '../views/HotelDetail.vue';
 import Payment from '../views/Payment.vue';
 
 const routes: Array<RouteRecordRaw> = [
@@ -24,10 +23,7 @@ const routes: Array<RouteRecordRaw> = [
         path: '/user-hotels',
         component: UserHotels 
       },
-      {
-      path: '/user/hoteldetails/:id',
-        component: HotelDetailView 
-      },
+ 
       {
         path: '/payment',
           component: Payment

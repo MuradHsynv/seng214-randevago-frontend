@@ -142,7 +142,7 @@ const handleLogin = async () => {
         await toast.present();
         router.push('/admin/hotels');
     } 
-    // Yeni kullanıcı kontrolü
+   
     else if (loginEmail.value.toLowerCase() === 'user' && loginPassword.value === '1234') {
         localStorage.removeItem('isAdmin');
         localStorage.setItem('userToken', 'dummyRegularUserToken');
