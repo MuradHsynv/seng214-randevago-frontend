@@ -132,6 +132,7 @@ const router = useRouter();
 const handleLogin = async () => {
     if (loginEmail.value.toLowerCase() === 'admin' && loginPassword.value === 'password') {
         localStorage.setItem('isAdmin', 'true');
+        localStorage.removeItem('isOwner');
         localStorage.removeItem('userToken');
         emitter.emit('authChange');
         const toast = await toastController.create({
@@ -141,6 +142,20 @@ const handleLogin = async () => {
         });
         await toast.present();
         router.push('/admin/hotels');
+    } 
+    else if (loginEmail.value.toLowerCase() === 'owner' && loginPassword.value === 'owner') {
+        localStorage.setItem('isOwner', 'true');
+        localStorage.setItem('ownerId', 'owner123'); 
+        localStorage.removeItem('isAdmin'); 
+        localStorage.removeItem('userToken');
+        emitter.emit('authChange');
+        const toast = await toastController.create({
+            message: 'Hotel Owner login successful!',
+            duration: 2000,
+            color: 'success',
+        });
+        await toast.present();
+        router.push('/owner/hotels');
     } 
     // Yeni kullanıcı kontrolü
     else if (loginEmail.value.toLowerCase() === 'user' && loginPassword.value === '1234') {
@@ -157,6 +172,9 @@ const handleLogin = async () => {
         router.push('/user-hotels');
     } 
     else {
+        localStorage.removeItem('isAdmin');
+        localStorage.removeItem('isOwner');
+        emitter.emit('authChange');
         const toast = await toastController.create({
             message: 'Invalid credentials or fields empty.',
             duration: 2000,
@@ -164,9 +182,10 @@ const handleLogin = async () => {
         });
         await toast.present();
         console.log('Navigating to /user...');
-router.push('/user');
+        router.push('/user');
     }
 };
+
 
 
 

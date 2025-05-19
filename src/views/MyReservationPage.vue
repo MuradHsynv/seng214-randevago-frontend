@@ -45,10 +45,6 @@
             </p>
 
             <div class="actions-bar ion-padding-top" v-if="canModifyOrCancel(res)">
-              <ion-button fill="outline" size="small" @click="modifyReservation(res)">
-                <ion-icon slot="start" :icon="pencilIcon"></ion-icon>
-                Modify
-              </ion-button>
               <ion-button fill="outline" size="small" color="danger" @click="confirmCancelReservation(res)">
                 <ion-icon slot="start" :icon="closeCircleIcon"></ion-icon>
                 Cancel
@@ -114,12 +110,7 @@ const getStatusColor = (status: Reservation['status']) => {
 };
 
 const canModifyOrCancel = (reservation: Reservation): boolean => {
-  if (reservation.status !== 'CONFIRMED') return false;
-  const checkIn = new Date(reservation.checkInDate);
-  const today = new Date();
-  const diffTime = checkIn.getTime() - today.getTime();
-  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-  return diffDays > 2;
+  return reservation.status === 'CONFIRMED' || reservation.status === 'PENDING_CONFIRMATION';
 };
 
 
@@ -140,7 +131,7 @@ const fetchMyReservationsAPI = async (userId: string): Promise<Reservation[]> =>
 const cancelReservationAPI = async (reservationId: string): Promise<boolean> => {
     console.log(`Cancelling reservation ${reservationId} (simulated)`);
     await new Promise(resolve => setTimeout(resolve, 700));
-    return true; 
+    return true;
 };
 
 onMounted(async () => {
@@ -183,7 +174,7 @@ const confirmCancelReservation = async (reservation: Reservation) => {
           if (success) {
             const index = reservations.value.findIndex(r => r.reservationID === reservation.reservationID);
             if (index !== -1) {
-              reservations.value[index].status = 'CANCELLED'; 
+              reservations.value[index].status = 'CANCELLED';
             }
             const toast = await toastController.create({ message: 'Reservation cancelled.', duration: 2000, color: 'success' });
             await toast.present();

@@ -12,6 +12,7 @@ import AdminReservationsPage from '../views/AdminReservationsPage.vue';
 import UserHotels from '../views/UserHotels.vue';
 import HotelDetailView from '../views/HotelDetail.vue';
 import Payment from '../views/Payment.vue';
+import OwnerHotelsPage from '../views/OwnerHotelsPage.vue';
 
 const routes: Array<RouteRecordRaw> = [
     { path: '/', redirect: '/login' },
@@ -72,6 +73,11 @@ const routes: Array<RouteRecordRaw> = [
         path: '/admin/reservations',
         name: 'AdminReservations',
         component: AdminReservationsPage,
+    },
+    {
+        path: '/owner/hotels', 
+        name: 'OwnerHotels',    
+        component: OwnerHotelsPage, 
     },
 ];
 

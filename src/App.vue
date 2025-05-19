@@ -21,19 +21,31 @@
                         </ion-item>
                     </ion-menu-toggle>
                     <ion-menu-toggle :auto-hide="false" v-if="isRegularUserLoggedInLocal && !isAdminLocal">
-    <ion-item button @click="navigateTo('/user-hotels')">
-        <ion-icon slot="start" :icon="businessIcon"></ion-icon>
-        <ion-label>Hotels</ion-label>
-    </ion-item>
-</ion-menu-toggle>
+                        <ion-item button @click="navigateTo('/user-hotels')">
+                            <ion-icon slot="start" :icon="businessIcon"></ion-icon>
+                            <ion-label>Hotels</ion-label>
+                        </ion-item>
+                    </ion-menu-toggle>
 
+
+                    <div v-if="isOwnerLocal && !isAdminLocal">
+                        <ion-item-divider>
+                            <ion-label>Hotel Owner Tools</ion-label>
+                        </ion-item-divider>
+                        <ion-menu-toggle :auto-hide="false">
+                            <ion-item button @click="navigateTo('/owner/hotels')">
+                                <ion-icon slot="start" :icon="businessIcon"></ion-icon>
+                                <ion-label>My Hotels</ion-label>
+                            </ion-item>
+                        </ion-menu-toggle>
+                    </div>
                     <ion-menu-toggle :auto-hide="false" v-if="isUserLoggedInLocal">
                         <ion-item button @click="logout">
                             <ion-icon slot="start" :icon="logOutIcon"></ion-icon>
                             <ion-label>Log Out</ion-label>
                         </ion-item>
                     </ion-menu-toggle>
-                    
+
                     <div v-if="isAdminLocal"> 
                         <ion-item-divider>
                             <ion-label>Admin Tools</ion-label>
@@ -112,14 +124,16 @@ import emitter from '@/emitter';
 
 const isAdminLocal = ref(false); 
 const isRegularUserLoggedInLocal = ref(false); 
+const isOwnerLocal = ref(false);
 const router = useRouter();
 
 const isUserLoggedInLocal = computed(() => {
-  return isAdminLocal.value || isRegularUserLoggedInLocal.value;
+  return isAdminLocal.value || isOwnerLocal.value || isRegularUserLoggedInLocal.value;
 });
 
 const checkAuthStatus = () => {
   isAdminLocal.value = localStorage.getItem('isAdmin') === 'true';
+  isOwnerLocal.value = localStorage.getItem('isOwner') === 'true';
   isRegularUserLoggedInLocal.value = !!localStorage.getItem('userToken');
 };
 
@@ -140,6 +154,8 @@ const navigateTo = (path: string) => {
 const logout = () => {
   localStorage.removeItem('isAdmin');
   localStorage.removeItem('userToken');
+  localStorage.removeItem('isOwner');
+  localStorage.removeItem('ownerId');
   emitter.emit('authChange');
   router.push('/login');
   menuController.close();
