@@ -113,7 +113,7 @@ const hotels = ref<Hotel[]>([]);
 const router = useRouter();
 
 const goToHotelDetails = (id: string) => {
-  router.push(`/user/hoteldetails/${id}`);
+  router.push(`/details`);
 };
 
 const fetchUserHotelsFromAPI = async (): Promise<Hotel[]> => {

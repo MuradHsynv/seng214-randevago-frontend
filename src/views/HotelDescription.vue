@@ -35,17 +35,13 @@
                 </ion-card-subtitle>
             </ion-card-header>
             <div class="button-container">
-                <ion-button id="open-toast" class="lr-button"
-                    >Reserve for 255$ per night</ion-button
-                >
+
+            <ion-button id="open-toast" class="lr-button" expand="block" color="primary" style="margin-top: 16px;"  @click="goToPayment" >
+  Reserve for 255$ per night
+</ion-button>
+ 
             </div>
-            <ion-toast
-                color="success"
-                trigger="open-toast"
-                position="middle"
-                message="Reservation successful"
-                :duration="5000"
-            />
+           
             <ion-segment>
                 <ion-segment-button value="overview" content-id="first">
                     <ion-label>Overview</ion-label>
@@ -129,13 +125,21 @@ import "leaflet/dist/leaflet.css";
 import { LMap, LTileLayer } from "@vue-leaflet/vue-leaflet";
 import { star, starHalf } from 'ionicons/icons';
 import { ref, nextTick, onMounted } from 'vue';
-
+import { useRouter } from 'vue-router';
 import iconRetinaUrl from 'leaflet/dist/images/marker-icon-2x.png';
 import iconUrl from 'leaflet/dist/images/marker-icon.png';
 import shadowUrl from 'leaflet/dist/images/marker-shadow.png';
 
 const zoom = ref(15);
 const mapRef = ref(null);
+
+
+const router = useRouter(); 
+const goToPayment = () => {
+  router.push('/payment');
+};
+
+
 
 L.Icon.Default.mergeOptions({
   iconRetinaUrl: iconRetinaUrl,
