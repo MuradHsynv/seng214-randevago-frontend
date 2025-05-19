@@ -9,6 +9,9 @@ import AdminPromotionsPage from '../views/AdminPromotionsPage.vue';
 import AdminUsersPage from '../views/AdminUsersPage.vue';
 import MyReservationsPage from '../views/MyReservationPage.vue';
 import AdminReservationsPage from '../views/AdminReservationsPage.vue';
+import UserHotels from '../views/UserHotels.vue';
+import HotelDetailView from '../views/HotelDetail.vue';
+import Payment from '../views/Payment.vue';
 
 const routes: Array<RouteRecordRaw> = [
     { path: '/', redirect: '/login' },
@@ -16,6 +19,20 @@ const routes: Array<RouteRecordRaw> = [
         path: '/search',
         component: SearchPage,
     },
+
+      {
+        path: '/user-hotels',
+        component: UserHotels 
+      },
+      {
+      path: '/user/hoteldetails/:id',
+        component: HotelDetailView 
+      },
+      {
+        path: '/payment',
+          component: Payment
+        },
+      
     {
         path: '/login',
         name: 'Login',
