@@ -13,10 +13,18 @@
     </ion-header>
     <ion-content class="ion-padding">
       <h2>Payment Information</h2>
+      <p style="color: green; font-weight: bold; margin-bottom: 20px;">
+        🌸 Spring Holiday Discount: For now only <strong>$90</strong>!
+      </p>
+      <ion-item>
+        <ion-label position="floating">Promotion Code</ion-label>
+        <ion-input v-model="cardholderName" />
+      </ion-item>
       <ion-item>
         <ion-label position="floating">Cardholder Name</ion-label>
         <ion-input v-model="cardholderName" />
       </ion-item>
+      
       <ion-item>
         <ion-label position="floating">Card Number</ion-label>
         <ion-input v-model="cardNumber" type="number" />
@@ -30,17 +38,7 @@
         <ion-input v-model="cvv" type="number" />
       </ion-item>
        <ion-content class="ion-padding">
-  <h2>Payment Information</h2>
-
-  <p style="color: green; font-weight: bold; margin-bottom: 20px;">
-    🌸 Spring Holiday Discount: For now only <strong>$90</strong>!
-  </p>
-
-  <ion-item>
-    <ion-label position="floating">Cardholder Name</ion-label>
-    <ion-input v-model="cardholderName" />
-  </ion-item>
-</ion-content>
+    </ion-content>
 
       <ion-button expand="block" color="success" style="margin-top: 20px;" @click="confirmPayment">
         Confirm
