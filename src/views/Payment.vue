@@ -29,7 +29,7 @@
         <ion-label position="floating">CVV</ion-label>
         <ion-input v-model="cvv" type="number" />
       </ion-item>
-
+       
       <ion-button expand="block" color="success" style="margin-top: 20px;" @click="confirmPayment">
         Confirm
       </ion-button>

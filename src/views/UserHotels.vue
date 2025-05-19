@@ -9,7 +9,7 @@
             style="color: var(--color-tetriary)"
           ></ion-back-button>
         </ion-buttons>
-        <ion-title class="ion-text-center" size="large">My Hotels</ion-title>
+        <ion-title class="ion-text-center" size="large">Hotels</ion-title>
         <ion-buttons slot="end">
           <ion-button>
             <ion-menu-button :auto-hide="false"></ion-menu-button>
@@ -121,7 +121,7 @@ const fetchUserHotelsFromAPI = async (): Promise<Hotel[]> => {
   return [
     {
       id: '101',
-      name: 'Cozy User Hotel',
+      name: 'Hotel Title',
       description: 'Nice place for relaxing',
       location: 'Istanbul, Turkey',
       imageUrl: '',

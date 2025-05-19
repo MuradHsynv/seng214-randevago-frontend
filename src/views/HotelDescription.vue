@@ -37,10 +37,11 @@
             <div class="button-container">
 
             <ion-button id="open-toast" class="lr-button" expand="block" color="primary" style="margin-top: 16px;"  @click="goToPayment" >
-  Reserve for 255$ per night
+  Reserve for 150$ per night
 </ion-button>
  
             </div>
+          
            
             <ion-segment>
                 <ion-segment-button value="overview" content-id="first">
