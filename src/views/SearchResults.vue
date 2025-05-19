@@ -61,7 +61,7 @@
                         Nothing more, nothing less.
                     </ion-card-content>
                     <ion-card-content style="font-weight: bold">
-                        255$
+                        150$
                     </ion-card-content>
                 </ion-card>
             </div>
